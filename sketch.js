@@ -30,7 +30,7 @@ function setup() {
 }
 
 function draw() {
-  background("grey");  
+  background("lightgrey");  
 
   Engine.update(engine);
  
