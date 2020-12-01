@@ -1,56 +1,60 @@
 const Engine = Matter.Engine;
-const World= Matter.World;
-const Bodies = Matter.Bodies; 
-const Body=Matter.Body;
-const Constraint=Matter.Constraint;
+const World = Matter.World;
+const Bodies = Matter.Bodies;
+const Body = Matter.Body;
 
-var bob1,bob2,bob3,bob4,bob5,bob6;
-var toproof;
-var rope1;
 
 function setup() {
-  createCanvas(800,400);
+	createCanvas(800, 600);
+
+
+	engine = Engine.create();
+	world = engine.world;
+
+	//Create the Bodies Here.
+
+	bobObject1 = new Bob(215, 450, 85);
+	bobObject2 = new Bob(300, 450, 85);
+	bobObject3 = new Bob(385, 450, 85);
+	bobObject4 = new Bob(470, 450, 85);
+	bobObject5 = new Bob(555, 450, 85);
+
+	roof = new Roof(385, 150, 400, 50);
+
+	ropeBob1 = new Rope(bobObject1.body, roof.body, -175, 20);
+	ropeBob2 = new Rope(bobObject2.body, roof.body, -90, 20);
+	ropeBob3 = new Rope(bobObject3.body, roof.body, -5, 20);
+	ropeBob4 = new Rope(bobObject4.body, roof.body, 80, 20);
+	ropeBob5 = new Rope(bobObject5.body, roof.body, 165, 20);
+
+	Engine.run(engine);
   
-  engine = Engine.create();
-  world = engine.world;
-
-  toproof= new roof(380,60,325,15);
-  bob1=new bob(380,300,30);
-  bob2=new bob(bob1.x+60,300,30);
-  bob3=new bob(bob2.x+60,300,30);
-  bob4=new bob(bob1.x-60,300,30);
-  bob5=new bob(bob4.x-60,300,30);
-  //rope1=new rope(bob1.body,toproof.body,-60*2,0);
-  rope1=new rope(bob1.body,toproof.body,0,0);
-  rope2=new rope(bob2.body,toproof.body,60,0);
-  rope3=new rope(bob3.body,toproof.body,120,0);
-  rope4=new rope(bob4.body,toproof.body,-60,0);
-  rope5=new rope(bob5.body,toproof.body,-120,0);
-
 }
+
 
 function draw() {
-  background("lightgrey");  
+  rectMode(CENTER);
+  background("grey");
 
-  Engine.update(engine);
- 
-  toproof.display();
-  bob1.display();
-  bob2.display();
-  bob3.display();
-  bob4.display();
-  bob5.display();
-  rope1.display();
-  rope2.display();
-  rope3.display();
-  rope4.display();
-  rope5.display();
+  roof.display();
+
+  ropeBob1.display();
+  ropeBob2.display();
+  ropeBob3.display();
+  ropeBob4.display();
+  ropeBob5.display();
+
+  bobObject1.display();
+  bobObject2.display();
+  bobObject3.display();
+  bobObject4.display();
+  bobObject5.display();
+	
+  drawSprites();
 }
 
-function keyPressed()
-{
-  if(keyCode === UP_ARROW)
-  {
-    Body.applyForce(bob5.body,bob3.body.position,{x:-115,y:-115});
-  }
+function keyPressed() {
+	if(keyCode == UP_ARROW){
+		Matter.Body.applyForce(bobObject1.body, bobObject1.body.position, {x: -250, y: -250})
+	}
 }
